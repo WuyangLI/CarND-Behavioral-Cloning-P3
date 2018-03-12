@@ -122,13 +122,7 @@ The model was trained and validated on different data sets to ensure that the mo
 
 However, when I started with the initial architecture (Nvidia model), I didn't apply any overfitting techniques, as a consequence, the model overfits severely.
 
-
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P30.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P30.png "image_tooltip")
-
 
 Figure 1 
 
@@ -136,13 +130,7 @@ As shown in Figure 1, both training and validation loss converges very quickly, 
 
 It turns out that initial model is not able to drive steadily on the lane: the car is not always in the middle of the lane, sometimes moves very close lane border, as shown in Figure 2.
 
-
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P31.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P31.png "image_tooltip")
-
 
 Figure 2
 
@@ -155,17 +143,10 @@ The model performs much better than the initial one. The car could pilot itself 
 However, in the second big round corner, the car fails to make turn, which is beyond expectation for the reasons listed below:
 
 
-
 *   in the training data, the car always makes very nice turn there.
 *   in the first round corner (the one before the bridge), the car could well recognise the border, turn with right angle and stays in the middle of lane, which implies that the car is capable of making turns.
 
-
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P32.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P32.png "image_tooltip")
-
 
 Figure 3
 
@@ -179,13 +160,7 @@ In order to alleviate overfitting problem, I used a different technique from dro
 
 The combination of both dropout and L2 regularization relieve my model from severe overfitting, Figure 4 shows that both training and validation loss decreases significantly with number of epochs and they converge very close.
 
-
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P33.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P33.png "image_tooltip")
-
 
 Figure 4
 
@@ -199,8 +174,6 @@ The model used an adam optimizer, so the learning rate was not tuned manually
 
 The following parameters are tuned manually:
 
-
-
 1.  The correction angle of left and right camera image for data augmentation
 1.  The keep probability for dropout
 1.  The L2 regularizer
@@ -212,7 +185,6 @@ The following parameters are tuned manually:
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road.
 
 
-
 *   The number of images is doubled, as all the original images are flipped from left to right to generate a mirror copy.
 *   For left and right camera images, I applied angle correction to center angle. For those in which the car makes a shallow turn, the angle correction is set to 0.3. While for those in which the car makes a radical turn, the angle correction is increased to a slightly larger value 0.45.
 *   Find the right number of laps of training data. Too many laps of data leads to  overfitting too, while too few laps results in underfitting.
@@ -221,61 +193,33 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P34.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P34.png "image_tooltip")
-
 
 Figure 5
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to turn itself away from lane border when it shifts from the the lane center. 
 
-
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P35.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P35.png "image_tooltip")
 
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P36.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
+Figure 6
 
 ![alt_text](images/P36.png "image_tooltip")
 
-
-Figure 6                                                       Figure 7
+Figure 7
 
 Then I flipped all the images and negate their angle to generate mirror images, which helps increased the training dataset dramatically.
 
-
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P37.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P37.png "image_tooltip")
-
 
 Figure 8
 
-
-
-<p id="gdcalert9" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P38.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert10">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P38.png "image_tooltip")
 
-
-<p id="gdcalert10" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P39.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert11">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
+Figure 9 
 
 ![alt_text](images/P39.png "image_tooltip")
 
-
-Figure 9                                                 Figure 10
+Figure 10
 
 In the end of this process, I have 61524 data points, which is sufficient for training a smart model.
 
