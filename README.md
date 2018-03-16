@@ -233,3 +233,6 @@ The ideal number of epochs was 10 as evidenced by Figure 4.
 
 As for learning rate, I used an adam optimizer so that manually training it wasn't necessary.
 
+
+**Video link:
+https://youtu.be/xMR_5bUzP9o
